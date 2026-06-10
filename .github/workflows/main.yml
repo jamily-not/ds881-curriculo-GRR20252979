@@ -33,11 +33,17 @@ jobs:
       - name: Instalar ferramentas de lint
         run: npm install -g htmlhint stylelint stylelint-config-standard
 
+      - name: Intalar dependências
+        run: npm ci  
+
+      - name: Instalar dependências
+        run: npm ci
+
       - name: Lint HTML - procurando erros
-        run: htmlhint index.html
+        run: npx htmlhint index.html
 
       - name: Lint CSS
-        run: stylelint "assets/css/**/*.css" --config '{"extends":"stylelint-config-standard"}'
+        run: npx stylelint "assets/css/**/*.css"
 
   build:
     name: Build
