@@ -1,7 +1,9 @@
-name: Deploy
+name: CI/CD — Currículo Online Jamily
 
 on:
   push:
+    branches: ["main"]
+  pull_request:
     branches: ["main"]
 
 permissions:
@@ -9,17 +11,66 @@ permissions:
   pages: write
   id-token: write
 
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
 jobs:
-  deploy:
+  lint:
+    name: Lint
     runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do código - Repositório na MV
+        uses: actions/checkout@v4
+
+      - name: Instalar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      
+      #valida erros html e css com padrão
+      - name: Instalar dependências
+        run: npm ci
+
+      - name: Lint HTML - procurando erros
+        run: npx htmlhint index.html
+
+      - name: Lint CSS
+        run: npx stylelint "assets/css/**/*.css"
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    needs: lint
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Verificar arquivos obrigatórios
+        run: |
+          echo "Verificando estrutura..."
+          test -f index.html || (echo "Erro: index.html não encontrado" && exit 1)
+          test -f assets/css/style.css || (echo "Erro: style.css não encontrado" && exit 1)
+          echo "OK - Estrutura"
+
+      - name: Empacotar site para deploy na raíz
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: "."
+
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    needs: build
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
+
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/configure-pages@v5
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: "."
-      - id: deployment
+      - name: Deploy no GitHub Pages
+        id: deployment
         uses: actions/deploy-pages@v4
