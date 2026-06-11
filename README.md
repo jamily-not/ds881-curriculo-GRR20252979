@@ -75,50 +75,8 @@ A branch `main` está configurada como protegida no GitHub com as seguintes regr
 - Push direto bloqueado — toda alteração entra via Pull Request
 - Merge só permitido com o pipeline de CI verde (status check obrigatório)
 
-![Branch-Protection](image.png)
-
-### Fluxo de trabalho
-
-Toda feature ou correção segue o fluxo:
-
-1. Criar uma branch a partir da `main` — ex: `feat/nova-secao`, `ci/melhorias-pipeline`
-2. Abrir um Pull Request descrevendo a mudança
-3. Aguardar o CI passar
-4. Realizar o merge
-
-### Conventional Commits
-
-As mensagens de commit seguem o padrão [Conventional Commits](https://www.conventionalcommits.org/):
-
-| Tipo | Uso |
-| :--- | :--- |
-| `feat` | nova funcionalidade ou seção |
-| `fix` | correção de conteúdo ou estilo |
-| `ci` | alterações no pipeline ou Docker |
-| `docs` | alterações no README ou documentação |
-| `style` | ajustes de formatação sem mudança de lógica |
-| `chore` | atualizações de dependências e configurações gerais |
+![Branch-Protection](assets/img/image.png)
 
 ---
 
-## Estrutura do projeto
-
-```
-.
-├── .github/
-│   ├── ISSUE_TEMPLATE/
-│   │   └── issue_template.md
-│   ├── workflows/
-│   │   └── main.yml
-│   └── pull_request_template.md
-├── assets/
-│   └── css/
-│       └── style.css
-├── .dockerignore
-├── .gitignore
-├── .stylelintrc.json
-├── Dockerfile
-├── docker-compose.yml
-├── index.html
-└── package.json
-```
+Desenvolvido por **Jamily** • GRR20252979 • DS881
