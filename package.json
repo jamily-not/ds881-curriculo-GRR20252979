@@ -1,7 +1,7 @@
 {
   "name": "ds881-curriculo-grr20252979",
   "version": "1.0.0",
-  "description": "Currículo online — projeto individual da disciplina DS881 aplicando DevOps.",
+  "description": "Currículo online — DevOps.",
   "main": "index.js",
   "scripts": {
     "test": "blc http://localhost:8080 --recursive --exclude-external"
