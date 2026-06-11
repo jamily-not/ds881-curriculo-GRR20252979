@@ -1,4 +1,4 @@
-name: CI/CD — Currículo Online Jamily
+name: CI/CD
 
 on:
   push:
@@ -12,8 +12,8 @@ permissions:
   id-token: write
 
 concurrency:
-  group: "pages"
-  cancel-in-progress: false
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
   lint:
@@ -21,19 +21,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout do código - Repositório na MV
+      - name: Checkout do código
         uses: actions/checkout@v4
 
       - name: Instalar Node.js
         uses: actions/setup-node@v4
         with:
           node-version: "20"
+          cache: "npm"
       
       #valida erros html e css com padrão
       - name: Instalar dependências
         run: npm ci
 
-      - name: Lint HTML - procurando erros
+      - name: Lint HTML
         run: npx htmlhint index.html
 
       - name: Lint CSS
