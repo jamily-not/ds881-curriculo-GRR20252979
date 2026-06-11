@@ -6,3 +6,14 @@ services:
     volumes:
       - .:/app
     restart: unless-stopped
+
+  lint:
+    build: .
+    volumes:
+      - .:/app
+    command: >
+      sh -c "npm ci &&
+             npx htmlhint index.html &&
+             npx stylelint 'assets/css/**/*.css'"
+    profiles:
+      - lint
