@@ -1,10 +1,10 @@
 {
   "name": "ds881-curriculo-grr20252979",
   "version": "1.0.0",
-  "description": "Este repositório é um **template** para a atividade prática individual da disciplina DS881. O objetivo é aplicar conceitos de conteinerização, automação de pipeline CI/CD e governança de código em um cenário de projeto real (seu currículo ou portfólio profissional).",
+  "description": "Currículo online — projeto individual da disciplina DS881 aplicando DevOps.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "blc http://localhost:8080 --recursive --exclude-external"
   },
   "repository": {
     "type": "git",
@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/jamily-not/ds881-curriculo-GRR20252979#readme",
   "devDependencies": {
+    "broken-link-checker": "^0.7.8",
     "htmlhint": "^1.9.2",
     "stylelint": "^17.13.0",
     "stylelint-config-standard": "^40.0.0"
